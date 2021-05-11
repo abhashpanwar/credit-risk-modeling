@@ -49,6 +49,8 @@ def home():
 @app.route("/predict",methods=['POST'])
 def predict():
     
+    reg_pd = pickle.load(open('models/pd_model.sav', 'rb'))
+    
     ref_categories_pd = config.ref_categories_pd
 
     df= pd.read_csv("deployment_pd_load_data.csv")
