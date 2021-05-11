@@ -12,20 +12,7 @@ import config
 
 app = Flask(__name__)
 
-class LogisticRegression_with_p_values:
-    
-    def __init__(self,*args,**kwargs):#,**kwargs):
-        self.model = linear_model.LogisticRegression(max_iter=1000,*args,**kwargs)#,**args)
-
-    def fit(self,X,y):
-        self.model.fit(X,y)
-                
-        scores, pvalues = chi2(inputs_train, loan_data_targets_train)
-        self.coef_ = self.model.coef_
-        self.intercept_ = self.model.intercept_
-        #self.z_scores = z_scores
-        self.p_values = pvalues
-
+reg_pd = pickle.load(open('pd_model_deployment.sav', 'rb'))
 score = pd.read_csv("df_scorecard.csv")
 features = score.groupby('Original feature name')["Feature name"].apply(list)[1:]
 features = features.to_dict()
@@ -49,10 +36,6 @@ def home():
 @app.route("/predict",methods=['POST'])
 def predict():
     
-    #reg_pd = pickle.load(open('models/pd_model.sav', 'rb'))
-    with open("models/pd_model.sav", "rb") as f:
-	    reg_pd = pickle.load(f)
-    
     ref_categories_pd = config.ref_categories_pd
 
     df= pd.read_csv("deployment_pd_load_data.csv")
@@ -65,7 +48,7 @@ def predict():
         value = request.form[col]
         if value not in ref_categories_pd:
             df[value]=1
-    probabilty_of_default = reg_pd.model.predict_proba(df)[: ][: , 0][0]   
+    probabilty_of_default = reg_pd.predict_proba(df)[: ][: , 0][0]   
 
     df.insert(0, 'Intercept', 1)
     score = pd.read_csv("df_scorecard.csv")
@@ -74,9 +57,5 @@ def predict():
     
     return render_template("index.html",form_data=request.form,type=1,pd=round(probabilty_of_default,2),credit_score=credit_score,features=features)
 
-if __name__ == "__main__":
-    # We import the PD model, stored in the 'pd_model.sav' file.
-    global reg_pd
-    reg_pd = pickle.load(open('models/pd_model.sav', 'rb'))
-    
+if __name__ == "__main__":          
     app.run(debug=True)
