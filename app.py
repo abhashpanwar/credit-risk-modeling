@@ -49,7 +49,9 @@ def home():
 @app.route("/predict",methods=['POST'])
 def predict():
     
-    reg_pd = pickle.load(open('models/pd_model.sav', 'rb'))
+    #reg_pd = pickle.load(open('models/pd_model.sav', 'rb'))
+    with open("models/pd_model.sav", "rb") as f:
+	    reg_pd = pickle.load(f)
     
     ref_categories_pd = config.ref_categories_pd
 
