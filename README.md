@@ -1,4 +1,4 @@
-# credit-risk-modeling
+# Credit Risk Modeling using Machine Learning
 
 ## Aim:
 The main aim of this project is to explore the dataset and discuss some interesting observations through visualizations and train machine learning models to predict the probabilty of default based on various features using supervised learning.
@@ -12,7 +12,7 @@ There are several different versions of this dataset. I have used a 1st version 
 But you can explore the available dataset: https://www.kaggle.com/pragyanbo/a-hitchhiker-s-guide-to-lending-club-loan-data#Understanding-the-data
 
 ## Models:
-* For PD, I have trained logistic regression
+* For PD, I have used logistic regression
 * For LGD, There is two stage approach. 1) Logistic Regression and 2) Linear Regression
 * For EAD, I have trained linear regression
 
