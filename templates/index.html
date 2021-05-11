@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{url_for('static',filename='Style.css')}}">
+    <style>
+        .left-side
+        {
+            background-color:#a3a8ac;
+            background-size:100% auto;
+            background-position: left top;
+            min-height:100vh;
+            padding: 10px;;
+        }
+        .bg-road
+        {
+            background-size:100% auto;
+            background-image: url({{url_for('static',filename='road.jpg')}});
+            min-height:97.2vh;
+            z-index:-1;
+        }
+        .main-heading
+        {
+            color:#df2e4a;
+            font-weight: bold;
+            text-shadow: 2px 2px 10px #fff;
+        }
+        .sub-heading
+        {
+            color:#951c1f;
+            font-weight: 700;
+            text-shadow: 2px 2px 10px lightblue;
+            font-size: 20px;
+        }
+        .padding-right-0{ /*padding-right: 0px;*/}
+        .header-content
+        {
+            margin-top: 40px;
+        }
+        .image-car
+        {
+            right: -115px;
+            position: absolute;
+        }
+        .steps
+        {
+            position: relative;
+            font-size: 25px;
+            color:#071ba7;
+            /*-webkit-text-stroke: 1px;*/
+        }
+        .box-footer
+        {
+            border: solid 1px white;
+
+            padding:10px;
+        }
+        .right-heading
+        {
+            color:#df2e4a;
+            font-weight: bold;
+        }
+        .price
+        {
+            border: 2px dashed black;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid row" style="margin-right: 0px;">
+    <div class="col-md-4  left-side">
+        <header class="header-content">
+            <center>
+                <a href="/"><h1 class="main-heading">Credit Risk Modeling<br>
+                    <span class="sub-heading">(Using Machine Learning)</span>
+                </h1></a>
+
+            </center>
+        </header>
+        <!---->
+        <br>
+        <div class="steps">
+            <ul >
+                <li>EDA</li>
+                <li>Data Pre-Processing</li>
+                <li>Modeling Probability of Default <br><small>-(Logistic Regression Model)</small></li>
+                <li>Modeling Loss Given Default <br><small>- (Logistic+Linear Model)</small></li>
+                <li>Modeling Exposure at Default <br><small>- (Linear Regression Model)</small></li>
+                <li>Expected Loss = (PD*LGD*EAD)</li>                
+                <li>Deployment</li>
+            </ul>
+        </div><br>
+        <div class="box-footer">
+            <span><b>Project By- </b><a style="color: inherit;" href="https://www.linkedin.com/in/panwar-abhash-anil/"> <u><b style="color:blue">Panwar Abhash Anil</b></u></a></span> <br>
+            <center><span>Thank you for visiting | Click on my name to see my linkedin</span></center>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <header class="right-heading">
+            <center><h1>Predicting Probability of Default(PD) <small>Please fill the form below</small></h1></center>
+        </header>
+        <hr>
+        {% if type==1 %}
+        <style>
+            .left-side
+            {
+                min-height:  120vh;
+            }
+        </style>
+        <div class="price">
+            <center><h2>Credit Risk is <b>{{pd}}</b> i.e there is {{pd}} probabilty that a borrower will fail to pay back a debt.<br>
+                Credit Score (FICO score): {{credit_score}}
+            </h2></center>            
+        </div>
+        <br>        
+        {% endif %}
+        <style>
+            
+        </style>
+        <form action="/predict" method="POST" class="width:100%">           
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <label>Select Grade:  <sup data-toggle="tooltip" data-placement="top" title="Lender assigned loan grade" ><i class="fa fa-question-circle" ></i></sup></label>
+                    <select class="form-control " name="grade">
+                        {%  for i in categories(features['grade'])%}
+                        <option value="{{i[0]}}" {% if form_data["grade"]==i[0] %}selected{% endif %} >{{i[1]}}</option> {%endfor%}
+                    </select> 
+                </div>
+                <div class="col-md-4 form-group">
+                    <label for="home_ownership">Select home ownership:  <sup data-toggle="tooltip" data-placement="top" title="The home ownership status provided by the borrower during registration. Our values are: RENT, OWN, MORTGAGE, OTHER." ><i class="fa fa-question-circle" ></i></sup></label>
+                    <select class="form-control" name="home_ownership">
+                        {%  for i in categories(features['home_ownership'])%}
+                        <option value="{{i[0]}}" {% if form_data["home_ownership"]==i[0] %}selected{% endif %} >{{i[1]}}</option> {%endfor%}
+                    </select> 
+                </div>
+                <div class="col-md-4 form-group">
+                    <label for="addr_state">Select addr_state:  <sup data-toggle="tooltip" data-placement="top" title="The state provided by the borrower in the loan application" ><i   class="fa fa-question-circle" ></i></sup></label>
+                    <select class="form-control" name="addr_state">
+                        {%  for i in categories(features['addr_state'])%}
+                        <option value="{{i[0]}}" {% if form_data["addr_state"]==i[0] %}selected{% endif %} >{{i[1]}}</option> {%endfor%}
+                </select> 
+                </div>               
+            </div>
+
+            <div class="row">
+                
+                <div class="col-md-4 form-group">
+                    <label for="verification_status">Select verification_status:  <sup  data-toggle="tooltip" data-placement="top" title="Indicates if the co-borrowers' joint income was verified by LC, not verified, or if the income source was verified"  ><i  class="fa fa-question-circle" ></i></sup></label>
+                    <select class="form-control" name="verification_status">
+                        {%  for i in categories(features['verification_status'])%}
+                        <option value="{{i[0]}}" {% if form_data["verification_status"]==i[0] %}selected{% endif %} >{{i[1]}}</option> {%endfor%}
+                    </select> 
+                </div>
+
+                <div class="col-md-4 form-group">
+                    <label for="purpose">Select purpose:  <sup  data-toggle="tooltip" data-placement="top" title="A category provided by the borrower for the loan request"  ><i  class="fa fa-question-circle" ></i></sup></label>
+                    <select class="form-control" name="purpose">                        
+                        <option value="purpose:credit_card" {% if form_data["purpose"]=="purpose:credit_card" %}selected{% endif %} >credit card</option> 
+                        <option value="purpose:debt_consolidation" {% if form_data["purpose"]=="purpose:debt_consolidation" %}selected{% endif %} >debt consolidation</option> 
+                        <option value="purpose:oth__med__vacation" {% if form_data["purpose"]=="purpose:oth__med__vacation" %}selected{% endif %} >medical,vacation,other</option> 
+                        <option value="purpose:major_purch__car__home_impr" {% if form_data["purpose"]=="purpose:major_purch__car__home_impr" %}selected{% endif %} >major purchase,car, home improvement</option> 
+                        <option value="purpose:educ__sm_b__wedd__ren_en__mov__house" {% if form_data["purpose"]=="purpose:educ__sm_b__wedd__ren_en__mov__house" %}selected{% endif %} >educational,small business,wedding,renewable energy,house,moving</option> 
+                    </select>
+                    
+                </div>
+                <div class="col-md-4 form-group">
+                    <label for="initial_list_status">Select initial_list_status:  <sup  data-toggle="tooltip" data-placement="top" title="The initial listing status of the loan. Possible values are – W, F. W stands for whole loans"  ><i  class="fa fa-question-circle" ></i></sup></label>
+                    <select class="form-control" name="initial_list_status">
+                        {%  for i in categories(features['initial_list_status'])%}
+                        <option value="{{i[0]}}" {% if form_data["initial_list_status"]==i[0] %}selected{% endif %} >{{i[1]}}</option> {%endfor%}
+                    </select> 
+                </div>                
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <label for="term">Select term:  <sup  data-toggle="tooltip" data-placement="top" title="The number of payments on the loan. Values are in months and can be either 36 or 60."  ><i  class="fa fa-question-circle" ></i></sup></label>
+                    <select class="form-control" name="term">
+                        {%  for i in categories(features['term'])%}
+                        <option value="{{i[0]}}" {% if form_data["term"]==i[0] %}selected{% endif %} >{{i[1]}}</option> {%endfor%}
+                    </select> 
+                </div>
+                <div class="col-md-4 form-group">
+                    <label for="emp_length">Select emp_length:  <sup  data-toggle="tooltip" data-placement="top" title="Employment length in years. Possible values are between 0 and 10 where 0 means less than one year and 10 means ten or more years. "  ><i  class="fa fa-question-circle" ></i></sup></label>
+                    <select class="form-control" name="emp_length">
+                        {%  for i in categories(features['emp_length'])%}
+                        <option value="{{i[0]}}" {% if form_data["emp_length"]==i[0] %}selected{% endif %} >{{i[1]}}</option> {%endfor%}
+                    </select> 
+                </div>
+               
+                <div class="col-md-4 form-group">
+                    <label for="months_since_issue_d">Select months_since_issue_d:  <sup  data-toggle="tooltip" data-placement="top" title="The number of months since the loan was funded"  ><i  class="fa fa-question-circle" ></i></sup></label>
+                    <select class="form-control" name="months_since_issue_d">
+                        {%  for i in categories(features['months_since_issue_d'])%}
+                        <option value="{{i[0]}}" {% if form_data["months_since_issue_d"]==i[0] %}selected{% endif %} >{{i[1]}}</option> {%endfor%}
+                    </select> 
+                </div>
+               
+            </div>
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <label for="mths_since_last_record">Select mths_since_last_record:  <sup  data-toggle="tooltip" data-placement="top" title="The number of months since the last public record."  ><i  class="fa fa-question-circle" ></i></sup></label>
+                    <select class="form-control" name="mths_since_last_record">
+                        {%  for i in categories(features['mths_since_last_record'])%}
+                        <option value="{{i[0]}}" {% if form_data["mths_since_last_record"]==i[0] %}selected{% endif %} >{{i[1]}}</option> {%endfor%}
+                    </select> 
+                </div>
+                <div class="col-md-4 form-group">
+                    <label for="int_rate">Enter int_rate:  <sup  data-toggle="tooltip" data-placement="top" title="Interest Rate on the loan"  ><i  class="fa fa-question-circle" ></i></sup></label>
+                    <select class="form-control" name="int_rate">
+                        {%  for i in categories(features['int_rate'])%}
+                        <option value="{{i[0]}}" {% if form_data["int_rate"]==i[0] %}selected{% endif %} >{{i[1]}}</option> {%endfor%}
+                    </select> 
+                </div>
+                <div class="col-md-4 form-group">
+                    <label for="months_since_earliest_cr_line">Enter months_since_earliest_cr_line:  <sup  data-toggle="tooltip" data-placement="top" title="The number of months since the borrower's earliest reported credit line was opened"  ><i  class="fa fa-question-circle" ></i></sup></label>
+                    <select class="form-control" name="months_since_earliest_cr_line">
+                        {%  for i in categories(features['months_since_earliest_cr_line'])%}
+                        <option value="{{i[0]}}" {% if form_data["months_since_earliest_cr_line"]==i[0] %}selected{% endif %} >{{i[1]}}</option> {%endfor%}
+                    </select> 
+                </div>
+            </div>
+            <div class="row">
+                
+
+                <div class="col-md-4 form-group">
+                    <label for="inq_last_6mths">Enter inq_last_6mths:  <sup  data-toggle="tooltip" data-placement="top" title="The number of inquiries in past 6 months (excluding auto and mortgage inquiries)"  ><i  class="fa fa-question-circle" ></i></sup></label>
+                    <select class="form-control" name="inq_last_6mths">
+                        {%  for i in categories(features['inq_last_6mths'])%}
+                        <option value="{{i[0]}}" {% if form_data["inq_last_6mths"]==i[0] %}selected{% endif %} >{{i[1]}}</option> {%endfor%}
+                    </select> 
+                </div>
+
+                <div class="col-md-4 form-group">
+                    <label for="acc_now_delinq">Enter acc_now_delinq:  <sup  data-toggle="tooltip" data-placement="top" title="The number of accounts on which the borrower is now delinquent."  ><i  class="fa fa-question-circle" ></i></sup></label>
+                    <select class="form-control" name="acc_now_delinq">
+                        {%  for i in categories(features['acc_now_delinq'])%}
+                        <option value="{{i[0]}}" {% if form_data["acc_now_delinq"]==i[0] %}selected{% endif %} >{{i[1]}}</option> {%endfor%}
+                    </select> 
+                </div>
+
+                <div class="col-md-4 form-group">
+                    <label for="annual_inc">Enter annual_inc:  <sup  data-toggle="tooltip" data-placement="top" title="The self-reported annual income provided by the borrower during registration."  ><i  class="fa fa-question-circle" ></i></sup></label>
+                    <select class="form-control" name="annual_inc">
+                        {%  for i in categories(features['annual_inc'])%}
+                        <option value="{{i[0]}}" {% if form_data["annual_inc"]==i[0] %}selected{% endif %} >{{i[1]}}</option> {%endfor%}
+                    </select> 
+                </div>                
+            </div>
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label for="dti">Enter dti:  <sup  data-toggle="tooltip" data-placement="top" title="A ratio calculated using the borrower’s total monthly debt payments on the total debt obligations, excluding mortgage and the requested LC loan, divided by the borrower’s self-reported monthly income."  ><i  class="fa fa-question-circle" ></i></sup></label>
+                    <select class="form-control" name="dti">
+                        {%  for i in categories(features['dti'])%}
+                        <option value="{{i[0]}}" {% if form_data["dti"]==i[0] %}selected{% endif %} >{{i[1]}}</option> {%endfor%}
+                    </select> 
+                </div>
+
+                <div class="col-md-6 form-group">
+                    <label for="mths_since_last_delinq">Enter mths_since_last_delinq:  <sup  data-toggle="tooltip" data-placement="top" title="The number of months since the borrower's last delinquency."  ><i  class="fa fa-question-circle" ></i></sup></label>
+                    <select class="form-control" name="mths_since_last_delinq">
+                        {%  for i in categories(features['mths_since_last_delinq'])%}
+                        <option value="{{i[0]}}" {% if form_data["mths_since_last_delinq"]==i[0] %}selected{% endif %} >{{i[1]}}</option> {%endfor%}
+                    </select> 
+                </div>
+            </div>
+            <input type="submit" class="btn btn-danger" name="submit" value="Predict"/>
+            <a href="/" class="btn btn-info">RESET</a>
+        </form>
+    </div>
+</div>
+
+  
+<script>
+    $(document).ready(function(){
+      $('[data-toggle="tooltip"]').tooltip();
+    });
+    </script>
+</body>
+</html>
