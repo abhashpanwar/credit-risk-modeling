@@ -9,7 +9,7 @@ import scipy.stats as stat
 from sklearn.feature_selection import chi2
 
 import config
-
+ 
 app = Flask(__name__)
 
 reg_pd = pickle.load(open('pd_model_deployment.sav', 'rb'))
