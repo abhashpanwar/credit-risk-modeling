@@ -128,21 +128,21 @@
         <form action="/predict" method="POST" class="width:100%">           
             <div class="row">
                 <div class="col-md-4 form-group">
-                    <label>Select Grade:  <sup data-toggle="tooltip" data-placement="top" title="Lender assigned loan grade" ><i class="fa fa-question-circle" ></i></sup></label>
+                    <label>Grade:  <sup data-toggle="tooltip" data-placement="top" title="Lender assigned loan grade" ><i class="fa fa-question-circle" ></i></sup></label>
                     <select class="form-control " name="grade">
                         {%  for i in categories(features['grade'])%}
                         <option value="{{i[0]}}" {% if form_data["grade"]==i[0] %}selected{% endif %} >{{i[1]}}</option> {%endfor%}
                     </select> 
                 </div>
                 <div class="col-md-4 form-group">
-                    <label for="home_ownership">Select home ownership:  <sup data-toggle="tooltip" data-placement="top" title="The home ownership status provided by the borrower during registration. Our values are: RENT, OWN, MORTGAGE, OTHER." ><i class="fa fa-question-circle" ></i></sup></label>
+                    <label for="home_ownership">Home ownership:  <sup data-toggle="tooltip" data-placement="top" title="The home ownership status provided by the borrower during registration. Our values are: RENT, OWN, MORTGAGE, OTHER." ><i class="fa fa-question-circle" ></i></sup></label>
                     <select class="form-control" name="home_ownership">
                         {%  for i in categories(features['home_ownership'])%}
                         <option value="{{i[0]}}" {% if form_data["home_ownership"]==i[0] %}selected{% endif %} >{{i[1]}}</option> {%endfor%}
                     </select> 
                 </div>
                 <div class="col-md-4 form-group">
-                    <label for="addr_state">Select addr_state:  <sup data-toggle="tooltip" data-placement="top" title="The state provided by the borrower in the loan application" ><i   class="fa fa-question-circle" ></i></sup></label>
+                    <label for="addr_state">State (US):  <sup data-toggle="tooltip" data-placement="top" title="The state provided by the borrower in the loan application" ><i   class="fa fa-question-circle" ></i></sup></label>
                     <select class="form-control" name="addr_state">
                         {%  for i in categories(features['addr_state'])%}
                         <option value="{{i[0]}}" {% if form_data["addr_state"]==i[0] %}selected{% endif %} >{{i[1]}}</option> {%endfor%}
@@ -153,7 +153,7 @@
             <div class="row">
                 
                 <div class="col-md-4 form-group">
-                    <label for="verification_status">Select verification_status:  <sup  data-toggle="tooltip" data-placement="top" title="Indicates if the co-borrowers' joint income was verified by LC, not verified, or if the income source was verified"  ><i  class="fa fa-question-circle" ></i></sup></label>
+                    <label for="verification_status">Verification status:  <sup  data-toggle="tooltip" data-placement="top" title="Indicates if the co-borrowers' joint income was verified by LC, not verified, or if the income source was verified"  ><i  class="fa fa-question-circle" ></i></sup></label>
                     <select class="form-control" name="verification_status">
                         {%  for i in categories(features['verification_status'])%}
                         <option value="{{i[0]}}" {% if form_data["verification_status"]==i[0] %}selected{% endif %} >{{i[1]}}</option> {%endfor%}
@@ -161,7 +161,7 @@
                 </div>
 
                 <div class="col-md-4 form-group">
-                    <label for="purpose">Select purpose:  <sup  data-toggle="tooltip" data-placement="top" title="A category provided by the borrower for the loan request"  ><i  class="fa fa-question-circle" ></i></sup></label>
+                    <label for="purpose">Purpose of loan:  <sup  data-toggle="tooltip" data-placement="top" title="A category provided by the borrower for the loan request"  ><i  class="fa fa-question-circle" ></i></sup></label>
                     <select class="form-control" name="purpose">                        
                         <option value="purpose:credit_card" {% if form_data["purpose"]=="purpose:credit_card" %}selected{% endif %} >credit card</option> 
                         <option value="purpose:debt_consolidation" {% if form_data["purpose"]=="purpose:debt_consolidation" %}selected{% endif %} >debt consolidation</option> 
@@ -172,7 +172,7 @@
                     
                 </div>
                 <div class="col-md-4 form-group">
-                    <label for="initial_list_status">Select initial_list_status:  <sup  data-toggle="tooltip" data-placement="top" title="The initial listing status of the loan. Possible values are – W, F. W stands for whole loans"  ><i  class="fa fa-question-circle" ></i></sup></label>
+                    <label for="initial_list_status">Initial list status:  <sup  data-toggle="tooltip" data-placement="top" title="The initial listing status of the loan. Possible values are – W, F. W stands for whole loans"  ><i  class="fa fa-question-circle" ></i></sup></label>
                     <select class="form-control" name="initial_list_status">
                         {%  for i in categories(features['initial_list_status'])%}
                         <option value="{{i[0]}}" {% if form_data["initial_list_status"]==i[0] %}selected{% endif %} >{{i[1]}}</option> {%endfor%}
@@ -182,14 +182,14 @@
 
             <div class="row">
                 <div class="col-md-4 form-group">
-                    <label for="term">Select term:  <sup  data-toggle="tooltip" data-placement="top" title="The number of payments on the loan. Values are in months and can be either 36 or 60."  ><i  class="fa fa-question-circle" ></i></sup></label>
+                    <label for="term">Term:  <sup  data-toggle="tooltip" data-placement="top" title="The number of payments on the loan. Values are in months and can be either 36 or 60."  ><i  class="fa fa-question-circle" ></i></sup></label>
                     <select class="form-control" name="term">
                         {%  for i in categories(features['term'])%}
                         <option value="{{i[0]}}" {% if form_data["term"]==i[0] %}selected{% endif %} >{{i[1]}}</option> {%endfor%}
                     </select> 
                 </div>
                 <div class="col-md-4 form-group">
-                    <label for="emp_length">Select emp_length:  <sup  data-toggle="tooltip" data-placement="top" title="Employment length in years. Possible values are between 0 and 10 where 0 means less than one year and 10 means ten or more years. "  ><i  class="fa fa-question-circle" ></i></sup></label>
+                    <label for="emp_length">Emp. length:  <sup  data-toggle="tooltip" data-placement="top" title="Employment length in years. Possible values are between 0 and 10 where 0 means less than one year and 10 means ten or more years. "  ><i  class="fa fa-question-circle" ></i></sup></label>
                     <select class="form-control" name="emp_length">
                         {%  for i in categories(features['emp_length'])%}
                         <option value="{{i[0]}}" {% if form_data["emp_length"]==i[0] %}selected{% endif %} >{{i[1]}}</option> {%endfor%}
@@ -197,7 +197,7 @@
                 </div>
                
                 <div class="col-md-4 form-group">
-                    <label for="months_since_issue_d">Select months_since_issue_d:  <sup  data-toggle="tooltip" data-placement="top" title="The number of months since the loan was funded"  ><i  class="fa fa-question-circle" ></i></sup></label>
+                    <label for="months_since_issue_d">Months since issue date:  <sup  data-toggle="tooltip" data-placement="top" title="The number of months since the loan was funded"  ><i  class="fa fa-question-circle" ></i></sup></label>
                     <select class="form-control" name="months_since_issue_d">
                         {%  for i in categories(features['months_since_issue_d'])%}
                         <option value="{{i[0]}}" {% if form_data["months_since_issue_d"]==i[0] %}selected{% endif %} >{{i[1]}}</option> {%endfor%}
@@ -207,32 +207,30 @@
             </div>
             <div class="row">
                 <div class="col-md-4 form-group">
-                    <label for="mths_since_last_record">Select mths_since_last_record:  <sup  data-toggle="tooltip" data-placement="top" title="The number of months since the last public record."  ><i  class="fa fa-question-circle" ></i></sup></label>
+                    <label for="mths_since_last_record">Months since last record:  <sup  data-toggle="tooltip" data-placement="top" title="The number of months since the last public record."  ><i  class="fa fa-question-circle" ></i></sup></label>
                     <select class="form-control" name="mths_since_last_record">
                         {%  for i in categories(features['mths_since_last_record'])%}
                         <option value="{{i[0]}}" {% if form_data["mths_since_last_record"]==i[0] %}selected{% endif %} >{{i[1]}}</option> {%endfor%}
                     </select> 
                 </div>
                 <div class="col-md-4 form-group">
-                    <label for="int_rate">Enter int_rate:  <sup  data-toggle="tooltip" data-placement="top" title="Interest Rate on the loan"  ><i  class="fa fa-question-circle" ></i></sup></label>
+                    <label for="int_rate">Interest rate(%):  <sup  data-toggle="tooltip" data-placement="top" title="Interest Rate on the loan"  ><i  class="fa fa-question-circle" ></i></sup></label>
                     <select class="form-control" name="int_rate">
                         {%  for i in categories(features['int_rate'])%}
                         <option value="{{i[0]}}" {% if form_data["int_rate"]==i[0] %}selected{% endif %} >{{i[1]}}</option> {%endfor%}
                     </select> 
                 </div>
                 <div class="col-md-4 form-group">
-                    <label for="months_since_earliest_cr_line">Enter months_since_earliest_cr_line:  <sup  data-toggle="tooltip" data-placement="top" title="The number of months since the borrower's earliest reported credit line was opened"  ><i  class="fa fa-question-circle" ></i></sup></label>
+                    <label for="months_since_earliest_cr_line">Months since earliest cr line:  <sup  data-toggle="tooltip" data-placement="top" title="The number of months since the borrower's earliest reported credit line was opened"  ><i  class="fa fa-question-circle" ></i></sup></label>
                     <select class="form-control" name="months_since_earliest_cr_line">
                         {%  for i in categories(features['months_since_earliest_cr_line'])%}
                         <option value="{{i[0]}}" {% if form_data["months_since_earliest_cr_line"]==i[0] %}selected{% endif %} >{{i[1]}}</option> {%endfor%}
                     </select> 
                 </div>
             </div>
-            <div class="row">
-                
-
+            <div class="row">            
                 <div class="col-md-4 form-group">
-                    <label for="inq_last_6mths">Enter inq_last_6mths:  <sup  data-toggle="tooltip" data-placement="top" title="The number of inquiries in past 6 months (excluding auto and mortgage inquiries)"  ><i  class="fa fa-question-circle" ></i></sup></label>
+                    <label for="inq_last_6mths">Inquiries in last 6months:  <sup  data-toggle="tooltip" data-placement="top" title="The number of inquiries in past 6 months (excluding auto and mortgage inquiries)"  ><i  class="fa fa-question-circle" ></i></sup></label>
                     <select class="form-control" name="inq_last_6mths">
                         {%  for i in categories(features['inq_last_6mths'])%}
                         <option value="{{i[0]}}" {% if form_data["inq_last_6mths"]==i[0] %}selected{% endif %} >{{i[1]}}</option> {%endfor%}
@@ -240,7 +238,7 @@
                 </div>
 
                 <div class="col-md-4 form-group">
-                    <label for="acc_now_delinq">Enter acc_now_delinq:  <sup  data-toggle="tooltip" data-placement="top" title="The number of accounts on which the borrower is now delinquent."  ><i  class="fa fa-question-circle" ></i></sup></label>
+                    <label for="acc_now_delinq">Accounts now delinquent:  <sup  data-toggle="tooltip" data-placement="top" title="The number of accounts on which the borrower is now delinquent."  ><i  class="fa fa-question-circle" ></i></sup></label>
                     <select class="form-control" name="acc_now_delinq">
                         {%  for i in categories(features['acc_now_delinq'])%}
                         <option value="{{i[0]}}" {% if form_data["acc_now_delinq"]==i[0] %}selected{% endif %} >{{i[1]}}</option> {%endfor%}
@@ -248,7 +246,7 @@
                 </div>
 
                 <div class="col-md-4 form-group">
-                    <label for="annual_inc">Enter annual_inc:  <sup  data-toggle="tooltip" data-placement="top" title="The self-reported annual income provided by the borrower during registration."  ><i  class="fa fa-question-circle" ></i></sup></label>
+                    <label for="annual_inc">Annual income (USD):  <sup  data-toggle="tooltip" data-placement="top" title="The self-reported annual income provided by the borrower during registration."  ><i  class="fa fa-question-circle" ></i></sup></label>
                     <select class="form-control" name="annual_inc">
                         {%  for i in categories(features['annual_inc'])%}
                         <option value="{{i[0]}}" {% if form_data["annual_inc"]==i[0] %}selected{% endif %} >{{i[1]}}</option> {%endfor%}
@@ -257,7 +255,7 @@
             </div>
             <div class="row">
                 <div class="col-md-6 form-group">
-                    <label for="dti">Enter dti:  <sup  data-toggle="tooltip" data-placement="top" title="A ratio calculated using the borrower’s total monthly debt payments on the total debt obligations, excluding mortgage and the requested LC loan, divided by the borrower’s self-reported monthly income."  ><i  class="fa fa-question-circle" ></i></sup></label>
+                    <label for="dti">Dti (%):  <sup  data-toggle="tooltip" data-placement="top" title="A ratio calculated using the borrower’s total monthly debt payments on the total debt obligations, excluding mortgage and the requested LC loan, divided by the borrower’s self-reported monthly income."  ><i  class="fa fa-question-circle" ></i></sup></label>
                     <select class="form-control" name="dti">
                         {%  for i in categories(features['dti'])%}
                         <option value="{{i[0]}}" {% if form_data["dti"]==i[0] %}selected{% endif %} >{{i[1]}}</option> {%endfor%}
@@ -265,7 +263,7 @@
                 </div>
 
                 <div class="col-md-6 form-group">
-                    <label for="mths_since_last_delinq">Enter mths_since_last_delinq:  <sup  data-toggle="tooltip" data-placement="top" title="The number of months since the borrower's last delinquency."  ><i  class="fa fa-question-circle" ></i></sup></label>
+                    <label for="mths_since_last_delinq">Months since last delinquency:  <sup  data-toggle="tooltip" data-placement="top" title="The number of months since the borrower's last delinquency."  ><i  class="fa fa-question-circle" ></i></sup></label>
                     <select class="form-control" name="mths_since_last_delinq">
                         {%  for i in categories(features['mths_since_last_delinq'])%}
                         <option value="{{i[0]}}" {% if form_data["mths_since_last_delinq"]==i[0] %}selected{% endif %} >{{i[1]}}</option> {%endfor%}
