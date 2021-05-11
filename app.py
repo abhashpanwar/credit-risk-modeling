@@ -29,6 +29,20 @@ class LogisticRegression_with_p_values:
 # We import the PD model, stored in the 'pd_model.sav' file.
 reg_pd = pickle.load(open('models/pd_model.sav', 'rb'))
 
+class LogisticRegression_with_p_values:
+    
+    def __init__(self,*args,**kwargs):#,**kwargs):
+        self.model = linear_model.LogisticRegression(max_iter=1000,*args,**kwargs)#,**args)
+
+    def fit(self,X,y):
+        self.model.fit(X,y)
+                
+        scores, pvalues = chi2(inputs_train, loan_data_targets_train)
+        self.coef_ = self.model.coef_
+        self.intercept_ = self.model.intercept_
+        #self.z_scores = z_scores
+        self.p_values = pvalues
+
 score = pd.read_csv("df_scorecard.csv")
 features = score.groupby('Original feature name')["Feature name"].apply(list)[1:]
 features = features.to_dict()
