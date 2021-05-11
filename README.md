@@ -21,4 +21,3 @@ But you can explore the available dataset: https://www.kaggle.com/pragyanbo/a-hi
 ## Score Card (FICO Score 300-850):
 ![Score Card](Score Card.png)
 
-
