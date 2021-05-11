@@ -11,10 +11,14 @@ The dataset contains all available data for more than 800,000 consumer loans iss
 There are several different versions of this dataset. I have used a 1st version but now dataset is not available on kaggle.com
 But you can explore the available dataset: https://www.kaggle.com/pragyanbo/a-hitchhiker-s-guide-to-lending-club-loan-data#Understanding-the-data
 
-# Models:
-For PD, I have trained logistic regression
-For LGD, There is two stage approach. 1) Logistic Regression and 2) Linear Regression
-For EAD, I have trained linear regression
+## Models:
+* For PD, I have trained logistic regression
+* For LGD, There is two stage approach. 1) Logistic Regression and 2) Linear Regression
+* For EAD, I have trained linear regression
 
+## Tools: pandas, scikit-learn, plotly, Flask
+
+## Score Card (FICO Score 300-850):
+![Score Card](Score Card.png)
 
 
