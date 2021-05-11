@@ -1,7 +1,7 @@
 # Credit Risk Modeling using Machine Learning
 
 ## Aim:
-The main aim of this project is to explore the dataset and discuss some interesting observations through visualizations and train machine learning models to predict the probabilty of default based on various features using supervised learning.
+The main aim of this project is to explore the dataset and discuss some interesting observations through visualizations and train machine learning models to predict the probabilty of default (PD), Loss given default (LGD) and Exposure at default (EAD) based on various features using supervised learning.
 
 <pre>
 ├── data
