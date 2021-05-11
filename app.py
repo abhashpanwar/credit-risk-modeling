@@ -3,12 +3,28 @@ from flask import Flask, render_template, request
 import pandas as pd
 import numpy as np
 import pickle
-
+from sklearn.linear_model import LogisticRegression
+from sklearn import linear_model
+import scipy.stats as stat
+from sklearn.feature_selection import chi2
 
 import config
-from config import LogisticRegression_with_p_values
 
 app = Flask(__name__)
+
+class LogisticRegression_with_p_values:
+    
+    def __init__(self,*args,**kwargs):#,**kwargs):
+        self.model = linear_model.LogisticRegression(max_iter=1000,*args,**kwargs)#,**args)
+
+    def fit(self,X,y):
+        self.model.fit(X,y)
+                
+        scores, pvalues = chi2(inputs_train, loan_data_targets_train)
+        self.coef_ = self.model.coef_
+        self.intercept_ = self.model.intercept_
+        #self.z_scores = z_scores
+        self.p_values = pvalues
 
 # We import the PD model, stored in the 'pd_model.sav' file.
 reg_pd = pickle.load(open('models/pd_model.sav', 'rb'))
