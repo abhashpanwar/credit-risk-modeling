@@ -72,6 +72,7 @@ def predict():
 
 if __name__ == "__main__":
     # We import the PD model, stored in the 'pd_model.sav' file.
+    global reg_pd
     reg_pd = pickle.load(open('models/pd_model.sav', 'rb'))
     
     app.run(debug=True)
