@@ -213,7 +213,10 @@
                     <label for="mths_since_last_record">Months since last record:  <sup  data-toggle="tooltip" data-placement="top" title="The number of months since the last public record."  ><i  class="fa fa-question-circle" ></i></sup></label>
                     <select class="form-control" name="mths_since_last_record">
                         {%  for i in categories(features['mths_since_last_record'])%}
-                        <option value="{{i[0]}}" {% if form_data["mths_since_last_record"]==i[0] %}selected{% endif %} >{{i[1]}}</option> {%endfor%}
+                        {% if i[1]!='Missing' %}
+                        <option value="{{i[0]}}" {% if form_data["mths_since_last_record"]==i[0] %}selected{% endif %} >{{i[1]}}</option>
+                        {% endif %}
+                        {%endfor%}
                     </select> 
                 </div>
                 <div class="col-md-4 form-group">
@@ -269,7 +272,10 @@
                     <label for="mths_since_last_delinq">Months since last delinquency:  <sup  data-toggle="tooltip" data-placement="top" title="The number of months since the borrower's last delinquency."  ><i  class="fa fa-question-circle" ></i></sup></label>
                     <select class="form-control" name="mths_since_last_delinq">
                         {%  for i in categories(features['mths_since_last_delinq'])%}
-                        <option value="{{i[0]}}" {% if form_data["mths_since_last_delinq"]==i[0] %}selected{% endif %} >{{i[1]}}</option> {%endfor%}
+                        {% if i[1]!='Missing' %}
+                        <option value="{{i[0]}}" {% if form_data["mths_since_last_delinq"]==i[0] %}selected{% endif %} >{{i[1]}}</option>
+                        {% endif %}
+                        {%endfor%}
                     </select> 
                 </div>
             </div>
